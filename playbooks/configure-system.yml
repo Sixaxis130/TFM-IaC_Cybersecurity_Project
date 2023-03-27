@@ -1,0 +1,10 @@
+
+- name: Configure system
+  hosts: 192.168.56.101
+  become: yes
+  tasks:
+
+- name: Call Roles
+  hosts: servers
+  roles:
+  - motd
