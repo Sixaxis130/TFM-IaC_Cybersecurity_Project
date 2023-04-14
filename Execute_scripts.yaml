@@ -1,6 +1,8 @@
-- name: Execute script on remote host
+- name: Execute script on localhost
   hosts: localhost
   gather_facts: no
   tasks:
     - name: Run script
-      script: /home/paulyflu/Escritorio
+      script:
+        src: /path/to/remote/script/file
+        remote_src: true
