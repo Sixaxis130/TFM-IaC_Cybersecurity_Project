@@ -1,0 +1,49 @@
+- name: Install Docker and Docker Compose
+  become: true
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - docker.io
+    - docker-compose
+
+- name: Initialize Docker Swarm
+  become: true
+  shell: |
+    docker swarm init --advertise-addr {{ swarm_manager_ip }}
+    docker swarm join-token -q worker
+  register: join_token
+
+- name: Join worker nodes to the Swarm
+  become: true
+  shell: |
+    sshpass -p 123 ssh {{ user }}@{{ item }} 'echo 123 | sudo -S docker swarm join --token {{ join_token.stdout }} {{ swarm_manager_ip }}:2377'
+  when: item not in groups['swarm_manager']
+  with_items: "{{ worker_ips }}"
+  register: join_worker_result
+
+- name: Create a Docker registry
+  become: true
+  docker_container:
+    name: registry
+    image: registry:2
+    ports:
+      - "5000:5000"
+
+- name: Build and push Docker images to registry
+  become: true
+  docker_compose:
+    project_src: "{{ playbook_dir }}"
+    build: yes
+    push: yes
+
+- name: Deploy Docker Compose project on the Docker Swarm cluster
+  become: true
+  docker_stack:
+    state: present
+    name: a1
+    compose_files: "{{ playbook_dir }}/{{ docker_compose_file }}"
+
+- name: Done
+  debug:
+    msg: "Deployment complete!"

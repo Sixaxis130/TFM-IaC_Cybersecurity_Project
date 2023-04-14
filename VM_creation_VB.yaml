@@ -1,0 +1,20 @@
+- name: Create a VirtualBox VM
+  vbox_guest:
+    name: test_vm1
+    ostype: Ubuntu_64
+    state: running
+    ram: 2048
+    vram: 16
+    hard_drive:
+      name: test_vm1.vdi
+      size: 20480
+      controller: SATA
+    network:
+      - name: eth0
+        type: bridged
+        bridge: en0: Wi-Fi (Wireless)
+    dvd:
+      image: 'http://releases.ubuntu.com/21.10/ubuntu-21.10-desktop-amd64.iso'
+      controller: IDE
+      boot_order: 1
+  register: _result

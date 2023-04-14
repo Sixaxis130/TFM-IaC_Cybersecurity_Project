@@ -1,0 +1,6 @@
+- name: Execute script on remote host
+  hosts: myserver
+  gather_facts: no
+  tasks:
+    - name: Run script
+      script: /path/to/script.sh
