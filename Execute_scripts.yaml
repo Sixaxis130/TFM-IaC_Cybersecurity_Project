@@ -1,6 +1,6 @@
 - name: Execute script on remote host
-  hosts: myserver
+  hosts: localhost
   gather_facts: no
   tasks:
     - name: Run script
-      script: /path/to/script.sh
+      script: /home/paulyflu/Escritorio
