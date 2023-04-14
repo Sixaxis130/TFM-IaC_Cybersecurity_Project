@@ -4,5 +4,5 @@
   tasks:
     - name: Run script
       script:
-        src: /home/paulyflu/Escritorio
+        src: /home/paulyflu/Escritorio/VM_deployment.sh
         remote_src: true
