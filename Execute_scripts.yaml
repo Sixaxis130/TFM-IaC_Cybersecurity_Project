@@ -4,5 +4,5 @@
   tasks:
     - name: Run script
       script:
-        src: /path/to/remote/script/file
+        src: /home/paulyflu/Escritorio
         remote_src: true
