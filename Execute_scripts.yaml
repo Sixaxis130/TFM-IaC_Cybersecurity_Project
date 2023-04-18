@@ -8,3 +8,7 @@
       become: yes
       args:
         executable: /bin/bash
+  vars:
+    ansible_connection: local
+    ansible_port: 22
+
