@@ -1,12 +1,13 @@
 - name: Execute script on localhost
   hosts: localhost
   connection: local
+  remote_user: admin
+  become: yes
   gather_facts: no
   tasks:
     - name: Run script
       script:
         src: /home/paulyflu/Escritorio/VM_deployment.sh
-      become: yes
       args:
         executable: /bin/bash
   vars:
