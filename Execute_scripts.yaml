@@ -11,5 +11,3 @@
   vars:
     ansible_connection: local
     ansible_port: 22
-  verbose: 3
-
