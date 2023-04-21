@@ -1,0 +1,14 @@
+- name: Execute script on localhost
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  tasks:
+    - name: Run script
+      script:
+        src: /home/paulyflu/Escritorio/VM_deployment.sh
+      become: yes
+      args:
+        executable: /bin/bash
+  vars:
+    ansible_connection: local
+    ansible_port: 22
