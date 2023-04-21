@@ -1,5 +1,6 @@
 - name: Execute script on localhost
   hosts: localhost
+  connection: local
   gather_facts: no
   tasks:
     - name: Run script
@@ -8,6 +9,3 @@
       become: yes
       args:
         executable: /bin/bash
-  vars:
-    ansible_connection: local
-    ansible_port: 22
