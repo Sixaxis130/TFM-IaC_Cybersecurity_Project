@@ -6,6 +6,7 @@
     - name: Define variables
       set_fact:
         vm_name: "test_vm1"
+        ansible_user: "admin"
         vm_os_type: "Ubuntu_64"
         vm_ram: "1024"
         vm_vram: "16"
