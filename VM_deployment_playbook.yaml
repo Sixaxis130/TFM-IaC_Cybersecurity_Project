@@ -21,7 +21,7 @@
     - name: Create VM
       become_user: admin
       command:
-        cmd: /media/paulyflu/262E0CAF2E0C79D7/Program Files/Oracle/VirtualBox/VBoxManage createvm --name "{{ vm_name }}" --ostype "{{ vm_os_type }}" --register
+        cmd: VBoxManage createvm --name "{{ vm_name }}" --ostype "{{ vm_os_type }}" --register
 
     - name: Configure VM
       become_user: admin
