@@ -21,32 +21,32 @@
         vm_dvd_boot_order: "1"
 
     - name: Create VM
-      command: VBoxManage createvm --name "{{ vm_name }}" --ostype "{{ vm_os_type }}" --register
+      command: /usr/bin/VBoxManage createvm --name "{{ vm_name }}" --ostype "{{ vm_os_type }}" --register
 
     - name: Configure VM
       block:
         - name: Modify VM settings
-          command: VBoxManage modifyvm "{{ vm_name }}" --memory "{{ vm_ram }}" --vram "{{ vm_vram }}" --nic1 "{{ vm_network_adapter }}" --bridgeadapter1 "{{ vm_network_bridge }}"
+          command: /usr/bin/VBoxManage modifyvm "{{ vm_name }}" --memory "{{ vm_ram }}" --vram "{{ vm_vram }}" --nic1 "{{ vm_network_adapter }}" --bridgeadapter1 "{{ vm_network_bridge }}"
 
         - name: Create VM HDD
-          command: VBoxManage createhd --filename "{{ vm_hdd_name }}" --size "{{ vm_hdd_size }}" --format VDI --variant Standard
+          command: /usr/bin/VBoxManage createhd --filename "{{ vm_hdd_name }}" --size "{{ vm_hdd_size }}" --format VDI --variant Standard
           args:
             creates: "{{ vm_hdd_name }}"
 
         - name: Attach VM HDD
-          command: VBoxManage storagectl "{{ vm_name }}" --name "{{ vm_hdd_controller }}" --add sata --controller IntelAhci
+          command: /usr/bin/VBoxManage storagectl "{{ vm_name }}" --name "{{ vm_hdd_controller }}" --add sata --controller IntelAhci
           changed_when: false
 
         - name: Attach VM DVD
-          command: VBoxManage storagectl "{{ vm_name }}" --name "{{ vm_dvd_controller }}" --add ide
+          command: /usr/bin/VBoxManage storagectl "{{ vm_name }}" --name "{{ vm_dvd_controller }}" --add ide
           changed_when: false
 
         - name: Attach ISO to VM DVD
-          command: VBoxManage storageattach "{{ vm_name }}" --storagectl "{{ vm_dvd_controller }}" --port 0 --device 0 --type dvddrive --medium "{{ iso_path }}"
+          command: /usr/bin/VBoxManage storageattach "{{ vm_name }}" --storagectl "{{ vm_dvd_controller }}" --port 0 --device 0 --type dvddrive --medium "{{ iso_path }}"
           changed_when: false
 
         - name: Set VM boot order
-          command: VBoxManage modifyvm "{{ vm_name }}" --boot1 dvd --boot2 disk --boot3 none --boot4 none
+          command: /usr/bin/VBoxManage modifyvm "{{ vm_name }}" --boot1 dvd --boot2 disk --boot3 none --boot4 none
           changed_when: false
 
     - name: Print VM created successfully
